@@ -1,5 +1,6 @@
 import random
 
+# variables
 rnum = 0
 money = 100
 bet = 0
@@ -14,7 +15,7 @@ allow = False
 want = "yes"
 
 
-def tobet():
+def tobet():  # place the bet
     global allow, bet, money
     allow = False
     while not allow:
@@ -25,14 +26,14 @@ def tobet():
             print("Invalid quantity.")
 
 
-def continued():
+def continued():  # player choose to continue the game or finish the game
     global want, next
     want = input("Do you want to continue the game? (yes or no): ")
     if want == "no":
         next = False
 
 
-while next and money > 0:
+while next and money > 0:  # game loop
 
     rnum = random.randint(1, 37)
 
@@ -46,12 +47,13 @@ while next and money > 0:
         number = random.choice(black)
     else:
         rnum = 3
+
     print("Now you have", money, "money.")
     gamemode = int(input("What would you bet on?: (1=color 2=number): "))
 
-    if gamemode == 1:
+    if gamemode == 1:  # COLOR
 
-        colansw = input("Coose a color. (red, black or green): ")
+        colansw = input("Choose a color. (red, black or green): ")  # choose the color
         if colansw == "red":
             colansw = 1
         elif colansw == "black":
@@ -61,17 +63,18 @@ while next and money > 0:
 
         tobet()
 
-        if colansw == rnum:
-            if colansw == 3:
+        if colansw == rnum:  # WIN
+            if colansw == 3:  # win with green
                 money = money + (bet * 35)
-            else:
+            else:  # win with red or black
                 money += bet
             print("Congratulation! You win! Now you have", money, "money.")
             continued()
-        else:
+        else:  # LOSE
             money -= bet
             print("Sorry you didn't win. Now you have", money, "money.")
 
+            # print the correct color
             if rnum == 1:
                 rnum = "red"
             elif rnum == 2:
@@ -84,22 +87,23 @@ while next and money > 0:
             if money > 0:
                 continued()
 
-    elif gamemode == 2:
+    elif gamemode == 2:  # NUMBER
 
-        numansw = input("Coose a number between 1 and 36: ")
+        numansw = input("Choose a number between 1 and 36: ")  # choose a
 
         tobet()
 
-        if numansw == number:
+        if numansw == number:  # WIN
             money = money + (bet * 35)
             print("Congratulation! You win! Now you have", money, "money.")
             continued()
-        else:
+        else:  # LOSE
             money -= bet
             print("Sorry you didn't win. Now you have", money, "money.")
             print("The correct number is", number)
             if money > 0:
                 continued()
 
+# game over
 print("Game over.")
 print("You have", money, "money.")
