@@ -13,6 +13,7 @@ gamemode = 0
 allow = False
 want = "yes"
 
+var = "akarmi"
 
 def tobet():
     global allow, bet, money
